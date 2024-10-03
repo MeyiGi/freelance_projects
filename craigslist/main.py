@@ -12,11 +12,13 @@ import time
 import requests
 import random
 import wget
+import threading
 
+data = None
 
 
 def open_choose_category_txt():
-    try:
+    try:    
         with open("choose_category.txt", "r") as file:
             content = file.read().strip()[-1]
         
@@ -594,158 +596,166 @@ def extract_and_save_link(driver, link_category, filename="output.txt"):
         return {"status": "error", "message": f"Error finding link_element"}
     
     
-    
+
 # Start data here    
 email = "kanybekovdaniel949@gmail.com"
 password = "sAmat.2004h"
-
 # email = "kanybekovdaniel369@gmail.com"
 # password = "sAmat.2004h"
 api_url = "https://adspostin.com/webtest/clcontent/content.php"
 
-
-# Run functions here
-result = open_choose_category_txt()
-print(result["status"], result["message"])
-if result["status"] == "error":
-    sys.exit()
-    
-ctgr = result["ctgr"]
-    
-    
-result = get_data_from_api(api_url=api_url)
-print(result["status"], result["message"])
-if result["status"] == "error":
-    sys.exit()
-    
-data = result["data"]
-
-
-result = create_driver()
-print(result["status"], result["message"])
-if result["status"] == "error":
-    sys.exit()
-
-driver = result["driver"]
-wait = result["wait"]
-
-
-result = login_to_craigslist(driver, wait, email, password)
-print(result["status"], result["message"])
-if result["status"] == "error":
-    sys.exit()
-
-result = select_location(driver, wait)
-print(result["status"], result["message"])
-if result["status"] == "error":
-    sys.exit()
-    
-handle_page(driver, wait)
-
-result = select_type_by_text(driver, wait, "housing offered")
-print(result["status"], result["message"])
-if result["status"] == "error":
-    sys.exit()
-
-
-result = select_category(driver, wait, ctgr)
-print(result["status"], result["message"])
-if result["status"] == "error":
-    sys.exit()
-
-
-if ctgr == "1":
-    result = fill_price_and_size(driver, wait, (1600, 1700), (1300, 1400))
+def main():
+    # Run functions here
+    result = open_choose_category_txt()
     print(result["status"], result["message"])
     if result["status"] == "error":
         sys.exit()
-    
-    result = select_option(driver, wait, '#ui-id-3-button .ui-selectmenu-text', '#ui-id-3-menu .ui-menu-item', "w/d in unit")
+        
+    ctgr = result["ctgr"]
+        
+        
+    result = get_data_from_api(api_url=api_url)
     print(result["status"], result["message"])
     if result["status"] == "error":
         sys.exit()
-    
-    result = select_option(driver, wait, '#ui-id-4-button .ui-selectmenu-text', '#ui-id-4-menu .ui-menu-item',  "attached garage")
-    print(result["status"], result["message"])
-    if result["status"] == "error":
-        sys.exit()
-    
-    result = select_option(driver, wait, '#ui-id-5-button .ui-selectmenu-text', '#ui-id-5-menu .ui-menu-item', "2")
-    print(result["status"], result["message"])
-    if result["status"] == "error":
-        sys.exit()
-    
-    result = select_option(driver, wait, '#ui-id-6-button .ui-selectmenu-text', '#ui-id-6-menu .ui-menu-item',  "2")
-    print(result["status"], result["message"])
-    if result["status"] == "error":
-        sys.exit()
-else:
-    result = fill_price_and_size(driver, wait, (800, 900), (175, 200))
-    print(result["status"], result["message"])
-    if result["status"] == "error":
-        sys.exit()
-    
-    result = select_option(driver, wait, '#ui-id-2-button .ui-selectmenu-text', '#ui-id-2-menu .ui-menu-item',  "private")
-    print(result["status"], result["message"])
-    if result["status"] == "error":
-        sys.exit()
-    
-    result = select_option(driver, wait, '#ui-id-4-button .ui-selectmenu-text', '#ui-id-4-menu .ui-menu-item', "private")
-    print(result["status"], result["message"])
-    if result["status"] == "error":
-        sys.exit()
-    
-    result = select_option(driver, wait, '#ui-id-5-button .ui-selectmenu-text', '#ui-id-5-menu .ui-menu-item', "w/d in unit")
-    print(result["status"], result["message"])
-    if result["status"] == "error":
-        sys.exit()
-    
-    result = select_option(driver, wait, '#ui-id-6-button .ui-selectmenu-text', '#ui-id-6-menu .ui-menu-item', "attached garage")
-    print(result["status"], result["message"])
-    if result["status"] == "error":
-        sys.exit()
-    
-result = fill_text_fields(driver, wait, data)
-print(result["status"], result["message"])
-if result["status"] == "error":
-    sys.exit()
-
-result = handle_checkboxes(driver, wait, [
-    'input[name="pets_cat"]',
-    'input[name="pets_dog"]',
-    'input[name="airconditioning"]',
-    'input[name="ev_charging"]'
-])
-print(result["status"], result["message"])
-if result["status"] == "error":
-    sys.exit()
-
-result = select_per(driver, wait)
-print(result["status"], result["message"])
-if result["status"] == "error":
-    sys.exit()
-
-result = submit_forms(driver, wait)
-print(result["status"], result["message"])
-if result["status"] == "error":
-    sys.exit()
-
-result = phone_number(driver, wait)
-print(result["status"], result["message"])
-if result["status"] == "error":
-    sys.exit()
+        
+    data = result["data"]
 
 
-time.sleep(2.5)
+    result = create_driver()
+    print(result["status"], result["message"])
+    if result["status"] == "error":
+        sys.exit()
 
-# Extracting link of post
-if ctgr == "1":
-    link_category = "apa"
-    
-if ctgr == "2":
-    link_category = "roo"
+    driver = result["driver"]
+    wait = result["wait"]
 
-result = extract_and_save_link(driver, link_category)
-print(result["status"], result["message"])
-if result["status"] == "error":
-    sys.exit()
+
+    result = login_to_craigslist(driver, wait, email, password)
+    print(result["status"], result["message"])
+    if result["status"] == "error":
+        sys.exit()
+
+    result = select_location(driver, wait)
+    print(result["status"], result["message"])
+    if result["status"] == "error":
+        sys.exit()
+        
+    handle_page(driver, wait)
+
+    result = select_type_by_text(driver, wait, "housing offered")
+    print(result["status"], result["message"])
+    if result["status"] == "error":
+        sys.exit()
+
+
+    result = select_category(driver, wait, ctgr)
+    print(result["status"], result["message"])
+    if result["status"] == "error":
+        sys.exit()
+
+
+    if ctgr == "1":
+        result = fill_price_and_size(driver, wait, (1600, 1700), (1300, 1400))
+        print(result["status"], result["message"])
+        if result["status"] == "error":
+            sys.exit()
+        
+        result = select_option(driver, wait, '#ui-id-3-button .ui-selectmenu-text', '#ui-id-3-menu .ui-menu-item', "w/d in unit")
+        print(result["status"], result["message"])
+        if result["status"] == "error":
+            sys.exit()
+        
+        result = select_option(driver, wait, '#ui-id-4-button .ui-selectmenu-text', '#ui-id-4-menu .ui-menu-item',  "attached garage")
+        print(result["status"], result["message"])
+        if result["status"] == "error":
+            sys.exit()
+        
+        result = select_option(driver, wait, '#ui-id-5-button .ui-selectmenu-text', '#ui-id-5-menu .ui-menu-item', "2")
+        print(result["status"], result["message"])
+        if result["status"] == "error":
+            sys.exit()
+        
+        result = select_option(driver, wait, '#ui-id-6-button .ui-selectmenu-text', '#ui-id-6-menu .ui-menu-item',  "2")
+        print(result["status"], result["message"])
+        if result["status"] == "error":
+            sys.exit()
+    else:
+        result = fill_price_and_size(driver, wait, (800, 900), (175, 200))
+        print(result["status"], result["message"])
+        if result["status"] == "error":
+            sys.exit()
+        
+        result = select_option(driver, wait, '#ui-id-2-button .ui-selectmenu-text', '#ui-id-2-menu .ui-menu-item',  "private")
+        print(result["status"], result["message"])
+        if result["status"] == "error":
+            sys.exit()
+        
+        result = select_option(driver, wait, '#ui-id-4-button .ui-selectmenu-text', '#ui-id-4-menu .ui-menu-item', "private")
+        print(result["status"], result["message"])
+        if result["status"] == "error":
+            sys.exit()
+        
+        result = select_option(driver, wait, '#ui-id-5-button .ui-selectmenu-text', '#ui-id-5-menu .ui-menu-item', "w/d in unit")
+        print(result["status"], result["message"])
+        if result["status"] == "error":
+            sys.exit()
+        
+        result = select_option(driver, wait, '#ui-id-6-button .ui-selectmenu-text', '#ui-id-6-menu .ui-menu-item', "attached garage")
+        print(result["status"], result["message"])
+        if result["status"] == "error":
+            sys.exit()
+        
+    result = fill_text_fields(driver, wait, data)
+    print(result["status"], result["message"])
+    if result["status"] == "error":
+        sys.exit()
+
+    result = handle_checkboxes(driver, wait, [
+        'input[name="pets_cat"]',
+        'input[name="pets_dog"]',
+        'input[name="airconditioning"]',
+        'input[name="ev_charging"]'
+    ])
+    print(result["status"], result["message"])
+    if result["status"] == "error":
+        sys.exit()
+
+    result = select_per(driver, wait)
+    print(result["status"], result["message"])
+    if result["status"] == "error":
+        sys.exit()
+
+    result = submit_forms(driver, wait)
+    print(result["status"], result["message"])
+    if result["status"] == "error":
+        sys.exit()
+
+    result = phone_number(driver, wait)
+    print(result["status"], result["message"])
+    if result["status"] == "error":
+        sys.exit()
+
+
+    time.sleep(2.5)
+
+    # Extracting link of post
+    if ctgr == "1":
+        link_category = "apa"
+        
+    if ctgr == "2":
+        link_category = "roo"
+
+    result = extract_and_save_link(driver, link_category)
+    print(result["status"], result["message"])
+    if result["status"] == "error":
+        sys.exit()
+
+threads = []
+for i in range(5):
+    thread = threading.Thread(target=main)
+    threads.append(thread)
+    thread.start()
+
+for thread in threads:
+    thread.join()
