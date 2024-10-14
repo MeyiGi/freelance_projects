@@ -57,9 +57,7 @@ def get_data_from_api(api_url):
         if not isinstance(imgs, list):
             raise ValueError("Expected a list of image URLs")
 
-        print(imgs)
         img_names = [img.split("/")[-1] for img in imgs]
-        print(img_names)
 
         return {
             "status": "success",
@@ -88,38 +86,14 @@ def get_data_from_api(api_url):
     except Exception as e:
         return {"status": "error", "message": f"An unexpected error occurred: {e}"}
         
-
-def create_anti_detect_browser(ads_id: str):
-    try:
-        open_url = f"http://local.adspower.net:50325/api/v1/browser/start?user_id={ads_id}"
-
-        # Start the browser
-        resp = requests.get(open_url).json()
-        if resp["code"] != 0:
-            print(resp["msg"])
-            print("please check ads_id")
-            sys.exit()
-
-        chrome_driver_path = resp["data"]["webdriver"]
-        chrome_driver_option = resp["data"]["ws"]["selenium"]
-
-        return {
-            "status" : "success",
-            "message" : "anti-detect browser created successfully",
-            "chrome_driver_path" : chrome_driver_path, "chrome_driver_option" : chrome_driver_option}
-    except Exception as e:
-        return {"status" : "error", "message" : f"{e}"}
-    
-def create_driver(chrome_driver_path, chrome_driver_option):
+        
+def create_driver():
     try:
         # Configure Chrome options
         options = webdriver.ChromeOptions()
-        options.add_experimental_option("debuggerAddress", chrome_driver_option)
-
-        service = Service(chrome_driver_path)
 
         print("Navigating to the page...")
-        driver = webdriver.Chrome(service=service, options=options)
+        driver = webdriver.Chrome(options=options)
         driver.get("https://accounts.craigslist.org/login")
 
         # Wait feature
@@ -433,46 +407,46 @@ def select_per(driver, wait):
     
     
     
-def submit_forms(driver, wait, data):
-    print("Submitting forms.")
-    
-    # Click the submit button
-    submit_button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button.submit-button")))
-    submit_button.click()
-    
-    if "geoverify" in driver.current_url:
-        submit_button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button.continue.bigbutton")))
+def submit_forms(driver, wait):
+    try:
+        print("Submitting forms.")
+        
+        # Click the submit button
+        submit_button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button.submit-button")))
         submit_button.click()
-    
-    # Wait for a significant time to ensure the form is processed (you might want to adjust this)
-    time.sleep(3)
-    # images
-    random_number = random.randint(100, 999)
-    path = os.path.join(os.getcwd(), f"images_from_api_{random_number}")
-    
-    result = setup_image_directory(path)
-    print(result["status"], result["message"])
-    if result["status"] == "error":
-        sys.exit()
+        
+        if "geoverify" in driver.current_url:
+            submit_button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button.continue.bigbutton")))
+            submit_button.click()
+        
+        # Wait for a significant time to ensure the form is processed (you might want to adjust this)
+        time.sleep(3)
+        # images
+        path = os.path.join(os.getcwd(), "images_from_api")
+        
+        result = setup_image_directory(path)
+        print(result["status"], result["message"])
+        if result["status"] == "error":
+            sys.exit()
 
-    result = download_images(zip(data["img_names"], data["imgs"]), path)
-    print(result["status"], result["message"])
-    if result["status"] == "error":
-        sys.exit()
+        result = download_images(zip(data["img_names"], data["imgs"]), path)
+        print(result["status"], result["message"])
+        if result["status"] == "error":
+            sys.exit()
+            
+        result = upload_images(driver, wait, 'input[type="file"]', path, "#doneWithImages")
+        print(result["status"], result["message"])
+        if result["status"] == "error":
+            sys.exit()
+            
+        # Click the continue button
+        continue_button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button.bigbutton")))
+        time.sleep(3)
+        continue_button.click()
         
-    result = upload_images(driver, wait, 'input[type="file"]', path, "#doneWithImages")
-    print(result["status"], result["message"])
-    if result["status"] == "error":
-        sys.exit()
-        
-    # Click the continue button
-    continue_button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button.bigbutton")))
-    time.sleep(3)
-    continue_button.click()
-    
-    return {"status": "success", "message": "Forms submitted successfully."}
-    # except Exception as e:
-    #     return {"status": "error", "message": f"Error finding or clicking submit buttons: {e}"}
+        return {"status": "success", "message": "Forms submitted successfully."}
+    except Exception as e:
+        return {"status": "error", "message": f"Error finding or clicking submit buttons: {e}"}
     
     
     
@@ -499,7 +473,6 @@ def download_images(img_urls, save_dir):
         return {"status" : "success", "message" : "Images downloaded successfully"}
     except Exception as e:
         return {"status" : "error" , "message" : str(e)}
-    
 def upload_images(driver, wait, file_input_selector, images_directory, done_button_selector):
     """
     Uploads images from the specified directory using the provided file input and done button selectors.
@@ -631,11 +604,7 @@ password = "sAmat.2004h"
 # password = "sAmat.2004h"
 api_url = "https://adspostin.com/webtest/clcontent/content.php"
 
-# knmyx20
-# knmhx2l
-# knn5b0q
-
-def main(profile_id="knn5b0q"):
+def main():
     # Run functions here
     result = open_choose_category_txt()
     print(result["status"], result["message"])
@@ -653,16 +622,7 @@ def main(profile_id="knn5b0q"):
     data = result["data"]
 
 
-    result = create_anti_detect_browser(profile_id)
-    print(result["status"], result["message"])
-    if result["status"] == "error":
-        sys.exit()
-
-    chrome_driver_path = result["chrome_driver_path"]
-    chrome_driver_option = result["chrome_driver_option"]
-    
-
-    result = create_driver(chrome_driver_path, chrome_driver_option)
+    result = create_driver()
     print(result["status"], result["message"])
     if result["status"] == "error":
         sys.exit()
@@ -766,7 +726,7 @@ def main(profile_id="knn5b0q"):
     if result["status"] == "error":
         sys.exit()
 
-    result = submit_forms(driver, wait, data)
+    result = submit_forms(driver, wait)
     print(result["status"], result["message"])
     if result["status"] == "error":
         sys.exit()
@@ -791,16 +751,11 @@ def main(profile_id="knn5b0q"):
     if result["status"] == "error":
         sys.exit()
 
-    driver.quit()
-    requests.get(f"http://local.adspower.net:50325/api/v1/browser/stop?user_id={profile_id}")
+threads = []
+for i in range(5):
+    thread = threading.Thread(target=main)
+    threads.append(thread)
+    thread.start()
 
-# threads = []
-# for i in range(1):
-#     thread = threading.Thread(target=main)
-#     threads.append(thread)
-#     thread.start()
-
-# for thread in threads:
-#     thread.join()
-
-main()
+for thread in threads:
+    thread.join()
