@@ -24,6 +24,10 @@ async def parse(client: httpx.AsyncClient, soup: BeautifulSoup) -> List[dict]:
 
     tasks = []
     for product in products:
+        is_soldout = product.select_one(".product-mark")
+        if is_soldout:
+            continue
+
         link = product.select_one(".grid-item-link.product-lists-item")["href"]
         product_url = base_url + link
         print(product_url)
