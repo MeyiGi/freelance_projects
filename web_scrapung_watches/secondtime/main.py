@@ -6,30 +6,33 @@ from bs4 import BeautifulSoup
 from typing import List
 import asyncio
 
-base_url = "https://secondtime.com"
+base_url = "https://www.themarinvault.com/"
+url = f"{base_url}/store"
 
 async def main():
     limits = Limits(max_connections=100)
     async with httpx.AsyncClient(limits=limits, timeout=30) as client:
-        results = []
-
-        for page in range(1, 7):
-            url = f"{base_url}/new-arrivals/?page={page}"
-            soup: BeautifulSoup = await start_requests(client, url=url)
-            results.extend(await parse(client, soup=soup))
+        offset = 0
+        url = f"{base_url}/store/All-Watches-c63091048?offset={offset}"
+        soup: BeautifulSoup = await start_requests(client, url=url)
+        results = await parse(client, soup=soup)
 
         df = pd.DataFrame(results)
         df.to_excel('output.xlsx', sheet_name='Sheet1', index=False)
 
 async def parse(client: httpx.AsyncClient, soup: BeautifulSoup) -> List[dict]:
-    products = soup.select("#product-listing-container .product")
+    products = soup.select(".grid-product__wrap")
     items = []
 
     tasks = []
-    for product in products:
-        product_url = product.select_one("h4.card-title a")["href"]
-        print(product_url)
-        tasks.append(parse_product(client, product_url))
+    # for product in products:
+    #     is_soldout = product.select_one(".product-mark")
+    #     if is_soldout:
+    #         continue
+    product = products[0]
+    product_url = product.select_one("a.grid-product__title")["href"]
+    print(product_url)
+    tasks.append(parse_product(client, product_url))
 
     items = await asyncio.gather(*tasks)
     return items
@@ -40,32 +43,34 @@ async def parse_product(client: httpx.AsyncClient, url: str) -> dict:
 
     item = {}
     
-    item["title"] = soup.select_one(".productView-details .productView-title").text.strip()
+    item["title"] = soup.select_one("h1.product-details__product-title").text.strip()
     
     # Replace 'scrape_specific' calls with an async version
     item["condition"] = await scrape_specific(soup, "condition")
     item["box-paper"] = await scrape_specific(soup, "box")
     item["manufacturer"] = await scrape_specific(soup, "Brand")
     item["reference-number"] = await scrape_specific(soup, "Reference Number")
-    item["case-size"] = ""
-    item["date"] = await scrape_specific(soup, "date")
-    item["case-material"] = await scrape_specific(soup, "material")
-    item["band-material"] = await scrape_specific(soup, "material")
-    item["dial-color"] = await scrape_specific(soup, "dial")
-    item["crystal"] = ""
-    item["hands"] = ""
+    item["case-size"] = await scrape_specific(soup, "Case Size")
+    item["date"] = await scrape_specific(soup, "Year of Production")
+    item["case-material"] = await scrape_specific(soup, "Case Material")
+    item["band-material"] = await scrape_specific(soup, "Clasp Material")
+    item["dial-color"] = await scrape_specific(soup, "Dial")
+    item["crystal"] = await scrape_specific(soup, "Crystal")
+    item["hands"] = await scrape_specific(soup, "Movement")
     item["sub-dials"] = ""
-    item["bezel"] = await scrape_specific(soup, "bezel")
-    item["bezel-material"] = await scrape_specific(soup, "material")
-    item["caliber"] = ""
-    item["power-reserve"] = ""
-    item["warranty"] = await scrape_specific(soup, "warranty")
-    item["calendar"] = await scrape_specific(soup, "date")
+    item["bezel"] = ""
+    item["bezel-material"] = await scrape_specific(soup, "Bezel Material")
+    item["caliber"] = await scrape_specific(soup, "Movement Caliber")
+    item["power-reserve"] = await scrape_specific(soup, "Power Reserve")
     
-    item["function"] = ""
+    date_info = await scrape_specific(soup, "date")
+    item["warranty"] = date_info.split("|")[1] if "|" in date_info else ""
+    item["calendar"] = date_info.split("|")[0] if "|" in date_info else ""
+    
+    item["function"] = await scrape_specific(soup, "Functions")
     item["website-url"] = url
 
-    images = [item.get("src") for item in soup.select('.productView-imageCarousel-nav-item-img-container img')]
+    images = [item.get("data-image") for item in soup.select('div[aria-label="Gallery thumbnails"] button img')]
     for i in range(20):
         try:
             item[f"image-{i}"] = images[i]
@@ -75,84 +80,15 @@ async def parse_product(client: httpx.AsyncClient, url: str) -> dict:
     return item
 
 async def scrape_specific(soup: BeautifulSoup, target: str) -> str:
-    description = soup.select(".productView-desc-content span")
+    attributes = soup.select(".details-product-attribute")
+    description = soup.select(".product-details__product-description p")
 
-    if target in ["condition", "bezel", "warranty"]:
-        for section in description:
-            text = section.text.strip().lower()
-            if target in text:
-                if target == "condition":
-                    return text.split(':')[-1] + '.'
-                else:
-                    return text
+    if target == "condition":
+        for item in description:
+            if "Overall" in item:
+                return item
             
-        for section in soup.select("p"):
-            text = section.get_text().lower()
-            if target in text:
-                text = text.split(";")[0]
-                if "condition" not in text:
-                    return text
-                
-                return text.split(":")[-1]
-        return ""
-
-    if target in ["box"]:
-        for section in description:
-            text = section.text.strip()
-            if target in text:
-                return text.split(':')[-1] + '.'
-        return ""
-    
-    if target in ["date"]:
-        title = soup.select_one(".productView-details .productView-title").text.strip()
-        try:
-            match = re.search(r'\b(20\d{2})\b', title).group(0)
-        except Exception as e:
-            match = ""
-        return match
-     
-    if target == "Brand":
-        title = soup.select_one(".productView-details .productView-title").text.strip()
-        brand = re.split(r'(\d)', title, 1)[0]
-        return brand
-    
-    if target == "Reference Number":
-        title = soup.select_one(".productView-details .productView-title").text.strip()
-        try:
-            ref_number = title.split("Ref ")[1].split()[0]
-        except Exception as e:
-            ref_number = ""
-
-        return ref_number
-    
-    if target == "material":
-        materials = ["stainless steel", "titanium", "gold", "platinum", "ceramic", "aluminum"]
-        title = soup.select_one(".productView-details .productView-title").text.strip().lower()
-
-        for material in materials:
-            if material in title:
-                return material
-            
-        return ""
-    
-    if target == "dial":
-        title = soup.select_one(".productView-details .productView-title").text.strip().lower()
-        try:
-            dial = title.split(" dial")
-            if len(dial) > 1:
-                dial = dial.split()[-1]
-            else:
-                dial = ""
-        except Exception as e:
-            dial = ""
-
-        return dial
-    
-
-    for section in description:
-        text = section.text.strip()
-        if target in text:
-            return text.split(":")[1].strip()
+        return item
 
     return ""
 
