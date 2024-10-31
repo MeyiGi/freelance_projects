@@ -1,0 +1,11 @@
+black
+white
+blue
+silver
+grey
+brown
+green
+red
+gold
+mother of pearl
+specialty color

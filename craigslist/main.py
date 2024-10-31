@@ -14,6 +14,9 @@ import random
 import wget
 import threading
 
+import undetected_chromedriver as uc
+from selenium.webdriver.support.ui import WebDriverWait
+
 data = None
 
 
@@ -90,10 +93,16 @@ def get_data_from_api(api_url):
 def create_driver():
     try:
         # Configure Chrome options
-        options = webdriver.ChromeOptions()
+        options = uc.ChromeOptions()
+        
+        # Optional: Set additional options if needed
+        # options.add_argument('--headless')  # Uncomment to run in headless mode
+        # options.add_argument('--disable-gpu')  # Disable GPU hardware acceleration
+        # options.add_argument('--no-sandbox')  # Bypass OS security model
+        # options.add_argument('--disable-dev-shm-usage')  # Overcome limited resource problems
 
         print("Navigating to the page...")
-        driver = webdriver.Chrome(options=options)
+        driver = uc.Chrome(options=options)
         driver.get("https://accounts.craigslist.org/login")
 
         # Wait feature
@@ -751,11 +760,13 @@ def main():
     if result["status"] == "error":
         sys.exit()
 
-threads = []
-for i in range(5):
-    thread = threading.Thread(target=main)
-    threads.append(thread)
-    thread.start()
+# threads = []
+# for i in range(1):
+#     thread = threading.Thread(target=main)
+#     threads.append(thread)
+#     thread.start()
 
-for thread in threads:
-    thread.join()
+# for thread in threads:
+#     thread.join()
+
+main()
