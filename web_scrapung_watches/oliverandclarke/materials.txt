@@ -1,0 +1,11 @@
+stainless Steel
+gold
+platinum
+ceramic
+aluminum
+titanium
+plastic
+carbon fiber
+sapphire
+bronze
+diamonds
