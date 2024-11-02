@@ -1,10 +1,14 @@
 from googleapiclient.discovery import build
 
-API_KEY = 'AIzaSyBIIpTj0aFYlrSJt5POOaqP_82BD5Ya45c'
+# -----------------------------------------------------------
+
+API_KEY = 'AIzaSyBIIpTj0aFYlrSJt5POOaqP_82BD5Ya45c'       # youtube api
+channels = ["HowdyhoNet", "CNBC-TV18", "NDTVProfitIndia"]
+
+# -----------------------------------------------------------
 youtube = build('youtube', 'v3', developerKey=API_KEY)
 
 def get_channel_id(username):
-    # Используем поиск по имени, чтобы найти канал, если `forUsername` не работает
     request = youtube.search().list(
         part="snippet",
         q=username,
@@ -19,9 +23,6 @@ def get_channel_id(username):
     else:
         print(f"Channel '{username}' not found.")
         return None
-
-# Список каналов для поиска
-channels = ["HowdyhoNet", "CNBC-TV18", "NDTVProfitIndia"]
 
 for channel in channels:
     channel_id = get_channel_id(channel)

@@ -6,10 +6,11 @@ from googleapiclient.discovery import build
 from datetime import datetime, timedelta
 
 # Set your API key, email credentials, and notification conditions
-API_KEY = "AIzaSyBIIpTj0aFYlrSJt5POOaqP_82BD5Ya45c"
-EMAIL_ADDRESS = "kanybekovdaniel6@gmail.com"
-EMAIL_API = "zffr hyso tjrh zdim"
-TO_EMAIL = "kanybekovdaniel369@gmail.com"
+
+API_KEY = "AIzaSyBIIpTj0aFYlrSJt5POOaqP_82BD5Ya45c" # youtube-api
+EMAIL_ADDRESS = "kanybekovdaniel6@gmail.com" # gmail with activated smtp 
+EMAIL_API = "zffr hyso tjrh zdim" # gmail with activated smtp api
+TO_EMAIL = "kanybekovdaniel369@gmail.com" 
 NOTIFY_THRESHOLD_VIEWS = 1000  # X1 in views
 TRACK_DURATION = timedelta(hours=1)  # X2 in hours
 CHECK_INTERVAL = 60  # Check every minute
