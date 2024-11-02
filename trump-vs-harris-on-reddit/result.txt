@@ -6,4 +6,9 @@ Oct 24 - Oct 31, 2024: Donnald(55.22), Harris(44.78) - Pennsylvania
 Oct 24 - Oct 31, 2024: Donnald(55.26), Harris(44.74) - Wisconsin
 Oct 24 - Oct 31, 2024: Donnald(55.22), Harris(44.78) - Nevada
 Oct 24 - Oct 31, 2024: Donnald(55.20), Harris(44.80) - Arizona
-Oct 24 - Oct 31, 2024: Donnald(55.10), Harris(44.90) - Arizona
+Oct 26 - Nov 02, 2024: Donnald(48.13), Harris(51.87) - Alabama
+Oct 26 - Nov 02, 2024: Donnald(48.06), Harris(51.94) - Alaska
+Oct 26 - Nov 02, 2024: Donnald(48.1), Harris(51.9) - Arizona
+Oct 26 - Nov 02, 2024: Donnald(48.1), Harris(51.9) - Arkansas
+Oct 26 - Nov 02, 2024: Donnald(47.91), Harris(52.09) - California
+Oct 26 - Nov 02, 2024: Donnald(48.1), Harris(51.9) - Colorado

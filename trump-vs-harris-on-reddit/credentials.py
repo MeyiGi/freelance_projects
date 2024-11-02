@@ -1,2 +1,2 @@
-CLIENT_ID = "aHa6UoRyvDNJSbLTjn1Wlg"
-CLIENT_SECRET = "bkasS28rIIcqkeLty58Y6u-Zv-Fuow"
+CLIENT_ID = "QTgp5BYwzTdRbhDkcBMOFA"
+CLIENT_SECRET = "SKhk2Vzi_e3jWzy_zAA8Xw_9PfyS9Q"
