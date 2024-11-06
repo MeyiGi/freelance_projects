@@ -1,4 +1,3 @@
-import threading
 import time
 from credentials import CLIENT_ID, CLIENT_SECRET
 from config import KEYWORDS_1_LIST, KEYWORDS_2_LIST, TOP_POSTS_TIME_FILTER, MAXIMUM_POSTS_PER_SUBREDDIT, SUBREDDIT_NAMES_LIST, STATES
@@ -7,8 +6,8 @@ from sentiment_analyzer import SentimentAnalyzer
 from datetime import datetime, timedelta
 
 def analyze_state(state):
-    backoff_time = 20  # Start with 1 second
-    max_backoff = 300  # Maximum backoff time in seconds
+    backoff_time = 1  # Start with 1 second
+    max_backoff = 60  # Maximum backoff time in seconds
 
     while True:
         try:
@@ -35,17 +34,28 @@ def analyze_state(state):
             for author_name in comments_list_by_author:
                 keywords_1_list_sentiment_score = sentiment_analyzer.get_texts_list_sentiment_score(KEYWORDS_1_LIST, comments_list_by_author[author_name])
                 keywords_2_list_sentiment_score = sentiment_analyzer.get_texts_list_sentiment_score(KEYWORDS_2_LIST, comments_list_by_author[author_name])
-
+                
                 if keywords_1_list_sentiment_score > keywords_2_list_sentiment_score:
                     keywords_1_list_total_votes += 1
                 if keywords_1_list_sentiment_score < keywords_2_list_sentiment_score:
                     keywords_2_list_total_votes += 1
 
-            # Calculate percentages
-            donnald_percentage = round(100 * (keywords_1_list_total_votes / len(comments_list_by_author)), 2)
-            harris_percentage = round(100 * (keywords_2_list_total_votes / len(comments_list_by_author)), 2)
+            print(KEYWORDS_1_LIST)
+            print("Votes percent:", round(100 * keywords_1_list_total_votes / len(comments_list_by_author), 2))
+            print(KEYWORDS_2_LIST)
+            print("Votes percent:", round(100 * keywords_2_list_total_votes / len(comments_list_by_author), 2))
+            print("Votes difference percent:", round(100 * (max(keywords_1_list_total_votes, keywords_2_list_total_votes) / min(keywords_1_list_total_votes, keywords_2_list_total_votes) - 1), 2))
 
-            overall = harris_percentage + donnald_percentage
+            # Calculate difference percentage
+            difference = round((100 * (max(keywords_1_list_total_votes, keywords_2_list_total_votes) / min(keywords_1_list_total_votes, keywords_2_list_total_votes) - 1) / 2), 2)
+            if keywords_1_list_total_votes > keywords_2_list_total_votes:
+                print("May", KEYWORDS_1_LIST, "win the US 2024 election?")
+                donald_percentage = 50 + difference
+                harris_percentage = 50 - difference
+            elif keywords_1_list_total_votes < keywords_2_list_total_votes:
+                print("May", KEYWORDS_2_LIST, "win the US 2024 election?")
+                donald_percentage = 50 - difference
+                harris_percentage = 50 + difference
 
             # Determine date range
             current_date = datetime.now()
@@ -54,7 +64,8 @@ def analyze_state(state):
             formatted_week_ago_date = week_ago_date.strftime("%b %d")
 
             # Prepare result string
-            result_string = f"{formatted_week_ago_date} - {formatted_current_date}: Donnald({round(donnald_percentage/overall * 100, 2)}), Harris({round(harris_percentage/overall * 100, 2)}) - {state}\n"
+            overall = donald_percentage + harris_percentage
+            result_string = f"{formatted_week_ago_date} - {formatted_current_date}: Donald({round(100 * (donald_percentage/overall), 2)}), Harris({round(100 * (harris_percentage/overall), 2)}) - {state}\n"
 
             # Append result to result.txt
             with open("result.txt", "a") as file:
@@ -65,7 +76,7 @@ def analyze_state(state):
             KEYWORDS_2_LIST.pop()
 
             # Reset backoff time if successful
-            backoff_time = 3
+            backoff_time = 1
             break
 
         except Exception as e:

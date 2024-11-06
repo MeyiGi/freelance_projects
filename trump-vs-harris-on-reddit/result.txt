@@ -6,9 +6,183 @@ Oct 24 - Oct 31, 2024: Donnald(55.22), Harris(44.78) - Pennsylvania
 Oct 24 - Oct 31, 2024: Donnald(55.26), Harris(44.74) - Wisconsin
 Oct 24 - Oct 31, 2024: Donnald(55.22), Harris(44.78) - Nevada
 Oct 24 - Oct 31, 2024: Donnald(55.20), Harris(44.80) - Arizona
-Oct 26 - Nov 02, 2024: Donnald(48.13), Harris(51.87) - Alabama
-Oct 26 - Nov 02, 2024: Donnald(48.06), Harris(51.94) - Alaska
-Oct 26 - Nov 02, 2024: Donnald(48.1), Harris(51.9) - Arizona
-Oct 26 - Nov 02, 2024: Donnald(48.1), Harris(51.9) - Arkansas
-Oct 26 - Nov 02, 2024: Donnald(47.91), Harris(52.09) - California
-Oct 26 - Nov 02, 2024: Donnald(48.1), Harris(51.9) - Colorado
+Oct 26 - Nov 02, 2024: Donald(49.94), Harris(50.06) - Pennsylvania
+Oct 26 - Nov 02, 2024: Donald(49.76), Harris(50.24) - Alabama
+Oct 26 - Nov 02, 2024: Donald(49.67), Harris(50.33) - Alaska
+Oct 26 - Nov 02, 2024: Donald(49.76), Harris(50.24) - Arizona
+Oct 26 - Nov 02, 2024: Donald(49.4), Harris(50.6) - Arkansas
+Oct 26 - Nov 02, 2024: Donald(49.22), Harris(50.78) - California
+Oct 26 - Nov 02, 2024: Donald(49.49), Harris(50.51) - Colorado
+Oct 26 - Nov 02, 2024: Donald(49.49), Harris(50.51) - Connecticut
+Oct 26 - Nov 02, 2024: Donald(49.49), Harris(50.51) - Delaware
+Oct 26 - Nov 02, 2024: Donald(49.18), Harris(50.82) - Florida
+Oct 26 - Nov 02, 2024: Donald(49.43), Harris(50.57) - Georgia
+Oct 26 - Nov 02, 2024: Donald(49.43), Harris(50.57) - Hawaii
+Oct 26 - Nov 02, 2024: Donald(49.37), Harris(50.63) - Idaho
+Oct 26 - Nov 02, 2024: Donald(49.31), Harris(50.69) - Illinois
+Oct 26 - Nov 02, 2024: Donald(49.25), Harris(50.75) - Indiana
+Oct 26 - Nov 02, 2024: Donald(49.28), Harris(50.72) - Iowa
+Oct 26 - Nov 02, 2024: Donald(49.19), Harris(50.81) - Kansas
+Oct 26 - Nov 02, 2024: Donald(49.16), Harris(50.84) - Kentucky
+Oct 26 - Nov 02, 2024: Donald(49.19), Harris(50.81) - Louisiana
+Oct 26 - Nov 02, 2024: Donald(49.07), Harris(50.93) - Maine
+Oct 26 - Nov 02, 2024: Donald(49.25), Harris(50.75) - Maryland
+Oct 26 - Nov 02, 2024: Donald(49.22), Harris(50.78) - Massachusetts
+Oct 26 - Nov 02, 2024: Donald(49.34), Harris(50.66) - Michigan
+Oct 26 - Nov 02, 2024: Donald(49.28), Harris(50.72) - Minnesota
+Oct 26 - Nov 02, 2024: Donald(49.34), Harris(50.66) - Oregon
+Oct 26 - Nov 02, 2024: Donald(49.28), Harris(50.72) - Mississippi
+Oct 26 - Nov 02, 2024: Donald(49.28), Harris(50.72) - Rhode Island
+Oct 26 - Nov 02, 2024: Donald(49.25), Harris(50.75) - Missouri
+Oct 26 - Nov 02, 2024: Donald(49.28), Harris(50.72) - South Carolina
+Oct 26 - Nov 02, 2024: Donald(49.31), Harris(50.69) - Montana
+Oct 26 - Nov 02, 2024: Donald(49.34), Harris(50.66) - South Dakota
+Oct 27 - Nov 03, 2024: Donald(48.98), Harris(51.02) - Pennsylvania
+Oct 27 - Nov 03, 2024: Donald(48.73), Harris(51.27) - Minnesota
+Oct 27 - Nov 03, 2024: Donald(48.76), Harris(51.24) - Delaware
+Oct 27 - Nov 03, 2024: Donald(48.81), Harris(51.19) - Oregon
+Oct 27 - Nov 03, 2024: Donald(48.81), Harris(51.19) - Alabama
+Oct 27 - Nov 03, 2024: Donald(48.51), Harris(51.49) - Florida
+Oct 27 - Nov 03, 2024: Donald(48.81), Harris(51.19) - Mississippi
+Oct 27 - Nov 03, 2024: Donald(48.76), Harris(51.24) - Rhode Island
+Oct 27 - Nov 03, 2024: Donald(48.79), Harris(51.21) - Alaska
+Oct 27 - Nov 03, 2024: Donald(48.81), Harris(51.19) - Georgia
+Oct 27 - Nov 03, 2024: Donald(48.76), Harris(51.24) - Missouri
+Oct 27 - Nov 03, 2024: Donald(48.81), Harris(51.19) - South Carolina
+Oct 27 - Nov 03, 2024: Donald(48.75), Harris(51.25) - Arizona
+Oct 27 - Nov 03, 2024: Donald(48.84), Harris(51.16) - Hawaii
+Oct 27 - Nov 03, 2024: Donald(48.81), Harris(51.19) - Montana
+Oct 27 - Nov 03, 2024: Donald(48.84), Harris(51.16) - South Dakota
+Oct 27 - Nov 03, 2024: Donald(48.84), Harris(51.16) - Arkansas
+Oct 27 - Nov 03, 2024: Donald(48.84), Harris(51.16) - Idaho
+Oct 27 - Nov 03, 2024: Donald(48.9), Harris(51.1) - Tennessee
+Oct 27 - Nov 03, 2024: Donald(48.93), Harris(51.07) - Nebraska
+Oct 27 - Nov 03, 2024: Donald(48.72), Harris(51.28) - California
+Oct 27 - Nov 03, 2024: Donald(48.81), Harris(51.19) - Illinois
+Oct 27 - Nov 03, 2024: Donald(48.78), Harris(51.22) - Nevada
+Oct 27 - Nov 03, 2024: Donald(49.09), Harris(50.91) - Texas
+Oct 27 - Nov 03, 2024: Donald(48.84), Harris(51.16) - Colorado
+Oct 27 - Nov 03, 2024: Donald(48.9), Harris(51.1) - New Hampshire
+Oct 27 - Nov 03, 2024: Donald(48.87), Harris(51.13) - Utah
+Oct 27 - Nov 03, 2024: Donald(48.81), Harris(51.19) - Indiana
+Oct 27 - Nov 03, 2024: Donald(48.79), Harris(51.21) - Connecticut
+Oct 27 - Nov 03, 2024: Donald(48.76), Harris(51.24) - New Jersey
+Oct 27 - Nov 03, 2024: Donald(48.78), Harris(51.22) - Vermont
+Oct 27 - Nov 03, 2024: Donald(48.89), Harris(51.11) - Iowa
+Oct 27 - Nov 03, 2024: Donald(48.79), Harris(51.21) - New Mexico
+Oct 27 - Nov 03, 2024: Donald(48.78), Harris(51.22) - Virginia
+Oct 27 - Nov 03, 2024: Donald(48.81), Harris(51.19) - Kansas
+Oct 27 - Nov 03, 2024: Donald(48.52), Harris(51.48) - New York
+Oct 27 - Nov 03, 2024: Donald(48.95), Harris(51.05) - Washington
+Oct 27 - Nov 03, 2024: Donald(48.81), Harris(51.19) - Kentucky
+Oct 27 - Nov 03, 2024: Donald(48.87), Harris(51.13) - North Carolina
+Oct 27 - Nov 03, 2024: Donald(48.9), Harris(51.1) - West Virginia
+Oct 27 - Nov 03, 2024: Donald(48.96), Harris(51.04) - Louisiana
+Oct 27 - Nov 03, 2024: Donald(48.96), Harris(51.04) - North Dakota
+Oct 27 - Nov 03, 2024: Donald(48.87), Harris(51.13) - Maine
+Oct 27 - Nov 03, 2024: Donald(49.21), Harris(50.79) - Wisconsin
+Oct 27 - Nov 03, 2024: Donald(48.93), Harris(51.07) - Ohio
+Oct 27 - Nov 03, 2024: Donald(49.04), Harris(50.96) - Maryland
+Oct 27 - Nov 03, 2024: Donald(48.93), Harris(51.07) - Wyoming
+Oct 27 - Nov 03, 2024: Donald(48.87), Harris(51.13) - Oklahoma
+Oct 27 - Nov 03, 2024: Donald(48.9), Harris(51.1) - Massachusetts
+Oct 27 - Nov 03, 2024: Donald(48.98), Harris(51.02) - Michigan
+Oct 28 - Nov 04, 2024: Donald(48.11), Harris(51.89) - Pennsylvania
+Oct 28 - Nov 04, 2024: Donald(48.01), Harris(51.99) - Delaware
+Oct 28 - Nov 04, 2024: Donald(47.92), Harris(52.08) - Minnesota
+Oct 28 - Nov 04, 2024: Donald(48.06), Harris(51.94) - Oregon
+Oct 28 - Nov 04, 2024: Donald(48.01), Harris(51.99) - Alabama
+Oct 28 - Nov 04, 2024: Donald(48.01), Harris(51.99) - Mississippi
+Oct 28 - Nov 04, 2024: Donald(47.76), Harris(52.24) - Florida
+Oct 28 - Nov 04, 2024: Donald(47.98), Harris(52.02) - Rhode Island
+Oct 28 - Nov 04, 2024: Donald(47.87), Harris(52.13) - Alaska
+Oct 28 - Nov 04, 2024: Donald(47.84), Harris(52.16) - Missouri
+Oct 28 - Nov 04, 2024: Donald(47.89), Harris(52.11) - Georgia
+Oct 28 - Nov 04, 2024: Donald(47.9), Harris(52.1) - South Carolina
+Oct 28 - Nov 04, 2024: Donald(47.95), Harris(52.05) - Arizona
+Oct 28 - Nov 04, 2024: Donald(47.95), Harris(52.05) - Montana
+Oct 28 - Nov 04, 2024: Donald(47.98), Harris(52.02) - Hawaii
+Oct 28 - Nov 04, 2024: Donald(47.98), Harris(52.02) - South Dakota
+Oct 28 - Nov 04, 2024: Donald(48.04), Harris(51.96) - Arkansas
+Oct 28 - Nov 04, 2024: Donald(48.09), Harris(51.91) - Nebraska
+Oct 28 - Nov 04, 2024: Donald(48.04), Harris(51.96) - Idaho
+Oct 28 - Nov 04, 2024: Donald(48.07), Harris(51.93) - Tennessee
+Oct 28 - Nov 04, 2024: Donald(47.95), Harris(52.05) - California
+Oct 28 - Nov 04, 2024: Donald(48.04), Harris(51.96) - Nevada
+Oct 28 - Nov 04, 2024: Donald(48.07), Harris(51.93) - Illinois
+Oct 28 - Nov 04, 2024: Donald(48.24), Harris(51.76) - Texas
+Oct 28 - Nov 04, 2024: Donald(48.07), Harris(51.93) - Colorado
+Oct 28 - Nov 04, 2024: Donald(48.09), Harris(51.91) - New Hampshire
+Oct 28 - Nov 04, 2024: Donald(48.09), Harris(51.91) - Utah
+Oct 28 - Nov 04, 2024: Donald(48.03), Harris(51.97) - Indiana
+Oct 28 - Nov 04, 2024: Donald(48.04), Harris(51.96) - Connecticut
+Oct 28 - Nov 04, 2024: Donald(48.04), Harris(51.96) - New Jersey
+Oct 28 - Nov 04, 2024: Donald(48.07), Harris(51.93) - Vermont
+Oct 28 - Nov 04, 2024: Donald(48.64), Harris(51.36) - Iowa
+Oct 28 - Nov 04, 2024: Donald(48.23), Harris(51.77) - New Mexico
+Oct 28 - Nov 04, 2024: Donald(48.26), Harris(51.74) - Virginia
+Oct 28 - Nov 04, 2024: Donald(48.31), Harris(51.69) - Kansas
+Oct 28 - Nov 04, 2024: Donald(48.06), Harris(51.94) - New York
+Oct 28 - Nov 04, 2024: Donald(48.42), Harris(51.58) - Washington
+Oct 28 - Nov 04, 2024: Donald(48.21), Harris(51.79) - Kentucky
+Oct 28 - Nov 04, 2024: Donald(48.18), Harris(51.82) - North Carolina
+Oct 28 - Nov 04, 2024: Donald(48.26), Harris(51.74) - West Virginia
+Oct 28 - Nov 04, 2024: Donald(48.26), Harris(51.74) - Louisiana
+Oct 28 - Nov 04, 2024: Donald(48.23), Harris(51.77) - North Dakota
+Oct 28 - Nov 04, 2024: Donald(48.45), Harris(51.55) - Wisconsin
+Oct 28 - Nov 04, 2024: Donald(48.12), Harris(51.88) - Maine
+Oct 28 - Nov 04, 2024: Donald(48.21), Harris(51.79) - Wyoming
+Oct 28 - Nov 04, 2024: Donald(48.26), Harris(51.74) - Ohio
+Oct 28 - Nov 04, 2024: Donald(48.32), Harris(51.68) - Maryland
+Oct 28 - Nov 04, 2024: Donald(48.32), Harris(51.68) - Oklahoma
+Oct 28 - Nov 04, 2024: Donald(48.37), Harris(51.63) - Massachusetts
+Oct 28 - Nov 04, 2024: Donald(48.54), Harris(51.46) - Michigan
+Oct 29 - Nov 05, 2024: Donald(47.05), Harris(52.95) - Alabama
+Oct 29 - Nov 05, 2024: Donald(47.08), Harris(52.92) - Delaware
+Oct 29 - Nov 05, 2024: Donald(47.05), Harris(52.95) - Minnesota
+Oct 29 - Nov 05, 2024: Donald(47.07), Harris(52.93) - Kansas
+Oct 29 - Nov 05, 2024: Donald(47.02), Harris(52.98) - New Jersey
+Oct 29 - Nov 05, 2024: Donald(47.08), Harris(52.92) - Oregon
+Oct 29 - Nov 05, 2024: Donald(47.05), Harris(52.95) - Utah
+Oct 29 - Nov 05, 2024: Donald(47.02), Harris(52.98) - Alaska
+Oct 29 - Nov 05, 2024: Donald(46.88), Harris(53.12) - Florida
+Oct 29 - Nov 05, 2024: Donald(47.08), Harris(52.92) - Kentucky
+Oct 29 - Nov 05, 2024: Donald(47.11), Harris(52.89) - Mississippi
+Oct 29 - Nov 05, 2024: Donald(46.96), Harris(53.04) - New Mexico
+Oct 29 - Nov 05, 2024: Donald(46.96), Harris(53.04) - Rhode Island
+Oct 29 - Nov 05, 2024: Donald(46.96), Harris(53.04) - Vermont
+Oct 29 - Nov 05, 2024: Donald(47.02), Harris(52.98) - Arizona
+Oct 29 - Nov 05, 2024: Donald(46.99), Harris(53.01) - Louisiana
+Oct 29 - Nov 05, 2024: Donald(46.88), Harris(53.12) - Missouri
+Oct 29 - Nov 05, 2024: Donald(46.87), Harris(53.13) - New York
+Oct 29 - Nov 05, 2024: Donald(47.02), Harris(52.98) - South Carolina
+Oct 29 - Nov 05, 2024: Donald(47.07), Harris(52.93) - Georgia
+Oct 29 - Nov 05, 2024: Donald(47.05), Harris(52.95) - Virginia
+Oct 29 - Nov 05, 2024: Donald(46.96), Harris(53.04) - Arkansas
+Oct 29 - Nov 05, 2024: Donald(46.85), Harris(53.15) - Maine
+Oct 29 - Nov 05, 2024: Donald(46.96), Harris(53.04) - Montana
+Oct 29 - Nov 05, 2024: Donald(46.96), Harris(53.04) - North Carolina
+Oct 29 - Nov 05, 2024: Donald(46.99), Harris(53.01) - South Dakota
+Oct 29 - Nov 05, 2024: Donald(47.07), Harris(52.93) - Hawaii
+Oct 29 - Nov 05, 2024: Donald(47.06), Harris(52.94) - Washington
+Oct 29 - Nov 05, 2024: Donald(47.04), Harris(52.96) - California
+Oct 29 - Nov 05, 2024: Donald(46.96), Harris(53.04) - Maryland
+Oct 29 - Nov 05, 2024: Donald(47.1), Harris(52.9) - Nebraska
+Oct 29 - Nov 05, 2024: Donald(46.88), Harris(53.12) - North Dakota
+Oct 29 - Nov 05, 2024: Donald(46.99), Harris(53.01) - Tennessee
+Oct 29 - Nov 05, 2024: Donald(47.13), Harris(52.87) - West Virginia
+Oct 29 - Nov 05, 2024: Donald(47.18), Harris(52.82) - Idaho
+Oct 29 - Nov 05, 2024: Donald(47.15), Harris(52.85) - Colorado
+Oct 29 - Nov 05, 2024: Donald(46.69), Harris(53.31) - Massachusetts
+Oct 29 - Nov 05, 2024: Donald(46.74), Harris(53.26) - Nevada
+Oct 29 - Nov 05, 2024: Donald(46.59), Harris(53.41) - Ohio
+Oct 29 - Nov 05, 2024: Donald(46.85), Harris(53.15) - Texas
+Oct 29 - Nov 05, 2024: Donald(46.73), Harris(53.27) - Illinois
+Oct 29 - Nov 05, 2024: Donald(46.93), Harris(53.07) - Wisconsin
+Oct 29 - Nov 05, 2024: Donald(46.73), Harris(53.27) - Connecticut
+Oct 29 - Nov 05, 2024: Donald(46.8), Harris(53.2) - Michigan
+Oct 29 - Nov 05, 2024: Donald(46.71), Harris(53.29) - New Hampshire
+Oct 29 - Nov 05, 2024: Donald(46.63), Harris(53.37) - Oklahoma
+Oct 29 - Nov 05, 2024: Donald(46.93), Harris(53.07) - Pennsylvania
+Oct 29 - Nov 05, 2024: Donald(46.76), Harris(53.24) - Indiana
+Oct 29 - Nov 05, 2024: Donald(46.71), Harris(53.29) - Wyoming
