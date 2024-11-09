@@ -93,7 +93,7 @@ def get_data_from_api(api_url):
 def create_driver():
     try:
         # Configure Chrome options
-        options = uc.ChromeOptions()
+        # options = uc.ChromeOptions()
         
         # Optional: Set additional options if needed
         # options.add_argument('--headless')  # Uncomment to run in headless mode
@@ -102,7 +102,7 @@ def create_driver():
         # options.add_argument('--disable-dev-shm-usage')  # Overcome limited resource problems
 
         print("Navigating to the page...")
-        driver = uc.Chrome(options=options)
+        driver = webdriver.Chrome()
         driver.get("https://accounts.craigslist.org/login")
 
         # Wait feature
@@ -760,13 +760,11 @@ def main():
     if result["status"] == "error":
         sys.exit()
 
-# threads = []
-# for i in range(1):
-#     thread = threading.Thread(target=main)
-#     threads.append(thread)
-#     thread.start()
+threads = []
+for i in range(2):
+    thread = threading.Thread(target=main)
+    threads.append(thread)
+    thread.start()
 
-# for thread in threads:
-#     thread.join()
-
-main()
+for thread in threads:
+    thread.join()
