@@ -1,3 +1,5 @@
+from base_morelogin.base_func import requestHeader, postRequest
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -13,12 +15,15 @@ import requests
 import random
 import wget
 import threading
+import asyncio
+import traceback
 
-import undetected_chromedriver as uc
 from selenium.webdriver.support.ui import WebDriverWait
 
 data = None
-
+APPID = '1603184696627727'
+SECRETKEY = '2a546deb503d4952abf0bd973d8d1e49'
+BASEURL = 'http://127.0.0.1:40000'
 
 def open_choose_category_txt():
     try:    
@@ -90,23 +95,52 @@ def get_data_from_api(api_url):
         return {"status": "error", "message": f"An unexpected error occurred: {e}"}
         
         
-def create_driver():
-    try:
-        # Configure Chrome options
-        options = uc.ChromeOptions()
+# def create_driver():
+#     try:
+#         # Configure Chrome options
+#         # options = uc.ChromeOptions()
         
-        # Optional: Set additional options if needed
-        # options.add_argument('--headless')  # Uncomment to run in headless mode
-        # options.add_argument('--disable-gpu')  # Disable GPU hardware acceleration
-        # options.add_argument('--no-sandbox')  # Bypass OS security model
-        # options.add_argument('--disable-dev-shm-usage')  # Overcome limited resource problems
+#         # Optional: Set additional options if needed
+#         # options.add_argument('--headless')  # Uncomment to run in headless mode
+#         # options.add_argument('--disable-gpu')  # Disable GPU hardware acceleration
+#         # options.add_argument('--no-sandbox')  # Bypass OS security model
+#         # options.add_argument('--disable-dev-shm-usage')  # Overcome limited resource problems
 
-        print("Navigating to the page...")
-        driver = uc.Chrome(options=options)
-        driver.get("https://accounts.craigslist.org/login")
+#         print("Navigating to the page...")
+#         driver = webdriver.Chrome()
+#         driver.get("https://accounts.craigslist.org/login")
 
-        # Wait feature
-        wait = WebDriverWait(driver, 10)
+#         # Wait feature
+#         wait = WebDriverWait(driver, 10)
+
+#         return {
+#             "status": "success",
+#             "message": "WebDriver created and navigated to the page successfully.",
+#             "driver": driver,
+#             "wait": wait
+#         }
+
+#     except Exception as e:
+#         return {
+#             "status": "error",
+#             "message": f"An error occurred while creating the WebDriver: {e}"
+#         }
+        
+
+async def create_antidetect_browser():
+    try:
+        profiles = read_txt()
+        random_num = random.randint(0, len(profiles) - 1)
+        
+        # browser's order num, you can get it from profile list page: Numerical order 
+        uniqueId = profiles[random_num].split(": P-")[1]
+        # browser profile id, please check API-demo: list_browser_profiles.py
+        envId = profiles[random_num].split(": P-")[0]
+        debugUrl = await startEnv(envId, uniqueId, APPID, SECRETKEY, BASEURL)
+        print(debugUrl)
+        
+        driver = createWebDriver(debugUrl)
+        wait = WebDriverWait(driver, 20)
 
         return {
             "status": "success",
@@ -114,19 +148,54 @@ def create_driver():
             "driver": driver,
             "wait": wait
         }
-
-    except Exception as e:
+    except:
+        errorMessage = traceback.format_exc()
         return {
             "status": "error",
-            "message": f"An error occurred while creating the WebDriver: {e}"
+            "message": f'run-error: ' + errorMessage
         }
-        
+
+def read_txt(filename="profiles.txt"):
+    with open(filename, "r") as file:
+        return [item.strip() for item in file.readlines()]
+
+# create webdriver with exist browser
+def createWebDriver(debugUrl):
+    opts = webdriver.ChromeOptions()
+    opts.set_capability('browserVersion', '129')
+    opts.add_experimental_option('debuggerAddress', debugUrl)
+    driver = webdriver.Chrome(options=opts)
+    return driver
+
+# start a browser profile, and return debug-url
+# if browser already opened, the browser will auto bring to front
+async def startEnv(envId, uniqueId, appId, secretKey, baseUrl):
+    requestPath = baseUrl + '/api/env/start'  
+    # Send the envId(profile ID) or the uniqueId(profile order number). 
+    # If both are sent, the profile ID takes precedence. 
+    data = { 
+        'envId': envId,
+        'uniqueId': uniqueId
+    }
+    headers = requestHeader(appId, secretKey)
+    response = postRequest(requestPath, data, headers).json()
+
+    if response['code'] != 0:
+        print(response['msg'])
+        print('please check envId')
+        sys.exit()
+
+    port = response['data']['debugPort']
+    print('env open result:', response['data'])
+    return '127.0.0.1:' + port
         
 
 def login_to_craigslist(driver, wait, email_address, password_text):
     try:
+        tabs = driver.window_handles
+        driver.switch_to.window(tabs[0])
+        driver.get("https://accounts.craigslist.org/")
         time.sleep(3)  # Delay to ensure the page is fully loaded
-
         if driver.current_url == "https://accounts.craigslist.org/login":
             # Handle email input
             try:
@@ -631,11 +700,18 @@ def main():
     data = result["data"]
 
 
-    result = create_driver()
-    print(result["status"], result["message"])
-    if result["status"] == "error":
-        sys.exit()
+    # result = create_driver()
+    # print(result["status"], result["message"])
+    # if result["status"] == "error":
+    #     sys.exit()
 
+
+    while True:
+        result = asyncio.run(create_antidetect_browser())
+        print(result["status"], result["message"])
+        if result["status"] != "error":
+            break
+ 
     driver = result["driver"]
     wait = result["wait"]
 
@@ -760,13 +836,12 @@ def main():
     if result["status"] == "error":
         sys.exit()
 
-# threads = []
-# for i in range(1):
-#     thread = threading.Thread(target=main)
-#     threads.append(thread)
-#     thread.start()
+threads = []
+for i in range(2):
+    time.sleep(5)
+    thread = threading.Thread(target=main)
+    threads.append(thread)
+    thread.start()
 
-# for thread in threads:
-#     thread.join()
-
-main()
+for thread in threads:
+    thread.join()
