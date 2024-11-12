@@ -17,7 +17,7 @@ emailToReceiveNotifications = "originalndd@gmail.com"
 #includers = ["next"]
 
 excluders = ["cricket", "Poker", "NFL", "NBA", "Solana", "Bitcoin", "Ethereum", "reach $", "above $", "tweet AND times"]
-includers = ["next"]
+includers = ["bitcoin"]
 
 #    --------------------------------------------------------------------------------------------------
 eventLimit = 10  # max is 100
@@ -129,7 +129,11 @@ def go():
     if marketHistory:
         saveNewData(marketHistory)
 
+last_notification_time = time.time()
 
 while True:
-    time.sleep(5)
     go()
+    if time.time() - last_notification_time >= 3600:
+        sendGmail("Program Status", "The program is still running.")
+        last_notification_time = time.time()
+    time.sleep(5)
