@@ -7,10 +7,13 @@ import ssl
 import os
 import smtplib
 import time
+from datetime import datetime
+import pytz
 
 
 #    --------------------------- EDIT THE BELOW LINE TO PUT YOUR EMAIL --------------------------------
-emailToReceiveNotifications = "originalndd@gmail.com"
+# emailToReceiveNotifications = "originalndd@gmail.com"
+emailToReceiveNotifications = "kanybekovdaniel6@gmail.com"
 #    --------------------------------------------------------------------------------------------------
 #  for example, it will ignore the updates that contain both trump and kamala (if there is only one it will let it pass), both furry and trend, and cricket. BUT if there is the word "next" in those updates, it will bypass the checks and deliver the update. So something like "trump beats kamala" will not pass but "trump will beat kamala in the next elections" will pass!
 #excluders = ["trump AND kamala", "furry AND trend", "cricket"]
@@ -20,7 +23,7 @@ excluders = ["cricket", "Poker", "NFL", "NBA", "Solana", "Bitcoin", "Ethereum", 
 includers = ["bitcoin"]
 
 #    --------------------------------------------------------------------------------------------------
-eventLimit = 10  # max is 100
+eventLimit = 1  # max is 100
 #    --------------------------------------------------------------------------------------------------
 
 
@@ -134,6 +137,8 @@ last_notification_time = time.time()
 while True:
     go()
     if time.time() - last_notification_time >= 3600:
-        sendGmail("Program Status", "The program is still running.")
+        eastern = pytz.timezone("US/Eastern")
+        eastern_time = datetime.now(eastern)
+        sendGmail("Program Status", f"PolyMarket program is still running at {eastern_time.strftime('%Y-%m-%d %H:%M:%S')} in US Eastern Time.")
         last_notification_time = time.time()
     time.sleep(5)
