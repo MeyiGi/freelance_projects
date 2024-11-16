@@ -12,26 +12,25 @@ import pytz
 
 
 #    --------------------------- EDIT THE BELOW LINE TO PUT YOUR EMAIL --------------------------------
-# emailToReceiveNotifications = "originalndd@gmail.com"
-emailToReceiveNotifications = "kanybekovdaniel6@gmail.com"
+emailReceivers = ["originalndd@gmail.com", "kanybekovdaniel777@gmail.com"]
 #    --------------------------------------------------------------------------------------------------
 #  for example, it will ignore the updates that contain both trump and kamala (if there is only one it will let it pass), both furry and trend, and cricket. BUT if there is the word "next" in those updates, it will bypass the checks and deliver the update. So something like "trump beats kamala" will not pass but "trump will beat kamala in the next elections" will pass!
 #excluders = ["trump AND kamala", "furry AND trend", "cricket"]
 #includers = ["next"]
 
-excluders = ["cricket", "Poker", "NFL", "NBA", "Solana", "Bitcoin", "Ethereum", "reach $", "above $", "tweet AND times"]
+excluders = ["cricket", "Poker", "Solana", "Bitcoin", "Ethereum", "reach $", "above $", "tweet AND times"]
 includers = ["bitcoin"]
 
 #    --------------------------------------------------------------------------------------------------
-eventLimit = 1  # max is 100
+eventLimit = 10  # max is 100
 #    --------------------------------------------------------------------------------------------------
 
 
 emailSender = "ph0150167@gmail.com"
 appCode = "ocxg sayq czat pclx"
-emailReceiver = emailToReceiveNotifications
 
 def sendGmail(title, body):
+    for emailReceiver in emailReceivers:
         print("sending gmail...")
         body = str(body)
 
@@ -48,8 +47,7 @@ def sendGmail(title, body):
             smtp.login(emailSender, appCode)
             smtp.sendmail(emailSender, emailReceiver, msg.as_string())
         print("Email sent!")
-        return True
-
+    return True
 
 def checkQuestion(df, question, yes, no, slug):
     questionExisted = False
@@ -137,8 +135,9 @@ last_notification_time = time.time()
 while True:
     go()
     if time.time() - last_notification_time >= 3600:
+        print("yes")
         eastern = pytz.timezone("US/Eastern")
         eastern_time = datetime.now(eastern)
-        sendGmail("Program Status", f"PolyMarket program is still running at {eastern_time.strftime('%Y-%m-%d %H:%M:%S')} in US Eastern Time.")
+        sendGmail("Program Status", f"PolyMarket program is still running at {eastern_time.strftime('%Y-%m-%d %H:%M')} in US Eastern Time.")
         last_notification_time = time.time()
     time.sleep(5)

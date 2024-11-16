@@ -7,8 +7,7 @@ from datetime import datetime
 from collections import deque   
 
 #    --------------------------- EDIT THE BELOW LINE TO PUT YOUR EMAIL --------------------------------
-# emailToReceiveNotifications = "originalndd@gmail.com"
-emailToReceiveNotifications = "kanybekovdaniel6@gmail.com"
+emailReceivers = ["originalndd@gmail.com", "kanybekovdaniel777@gmail.com"]
 # -----------------------------------------------------------------------------------------------------
 
 # ---------------------------------------- Twitter.com ------------------------------------------------
@@ -30,15 +29,15 @@ tweet_ids = deque(maxlen=10)
 # email staffs
 emailSender = "ph0150167@gmail.com"
 appCode = "ocxg sayq czat pclx"
-emailReceiver = emailToReceiveNotifications
 
 def sendGmail(title, body):
-    print("sending gmail...")
+    for emailReceiver in emailReceivers:
+        print("sending gmail...")
 
-    with yagmail.SMTP(emailSender, appCode) as yag:
-        yag.send(to=emailReceiver, subject=title, contents=str(body))
+        with yagmail.SMTP(emailSender, appCode) as yag:
+            yag.send(to=emailReceiver, subject=title, contents=str(body))
 
-    print("email sent!")
+        print("email sent!")
     return True
 
 # main function
@@ -56,7 +55,7 @@ def go():
                     body = tweet.text
 
                     print("New tweet added:", tweet.text)
-                    sendGmail("New tweet added on Trump page!", f"{body}\n{tweet_url}")
+                    sendGmail("New tweet added on Trump page(twitter.com)!", f"{body}\n{tweet_url}")
                 else:
                     print("Duplicate tweet skipped.")
         else:
@@ -74,6 +73,6 @@ while True:
     if time.time() - last_notification_time >= 3600:
         eastern = pytz.timezone("US/Eastern")
         eastern_time = datetime.now(eastern)
-        sendGmail("Program Status", f"Trump tracking program is still running at {eastern_time.strftime('%Y-%m-%d %H:%M:%S')} in US Eastern Time.(Twitter.com)")
+        sendGmail("Program Status", f"twitter Trump tracking program is still running at {eastern_time.strftime('%Y-%m-%d %H:%M:%S')} in US Eastern Time.")
         last_notification_time = time.time()
-    time.sleep(60)
+    time.sleep(60 * 15)
