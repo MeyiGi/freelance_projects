@@ -112,20 +112,23 @@ def go():
         
     marketHistory = []
     for x in response:
-        slug = x['slug']
-        for y in (x['markets']):
-            try:
-                yesInt, noInt = [float(a) for a in ast.literal_eval(y['outcomePrices'])]
-                yes, no = str(round(yesInt*100))+"%", str(round(noInt*100))+"%"
-            except:
-                yes, no = ["ERROR"]*2
+        try:
+            slug = x['slug']
+            for y in (x['markets']):
+                try:
+                    yesInt, noInt = [float(a) for a in ast.literal_eval(y['outcomePrices'])]
+                    yes, no = str(round(yesInt*100))+"%", str(round(noInt*100))+"%"
+                except:
+                    yes, no = ["ERROR"]*2
 
-            if not allowQuestion(y['question']): continue
+                if not allowQuestion(y['question']): continue
 
 
-            checkQuestion(df, y['question'], yesInt, noInt, slug)
+                checkQuestion(df, y['question'], yesInt, noInt, slug)
 
-            marketHistory.append([y['question'], yesInt, noInt])
+                marketHistory.append([y['question'], yesInt, noInt])
+        except Exception as e:
+            continue
         
     if marketHistory:
         saveNewData(marketHistory)
