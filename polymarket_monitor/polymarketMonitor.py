@@ -9,10 +9,11 @@ import smtplib
 import time
 from datetime import datetime
 import pytz
+import yagmail
 
 
 #    --------------------------- EDIT THE BELOW LINE TO PUT YOUR EMAIL --------------------------------
-emailReceivers = ["originalndd@gmail.com", "kanybekovdaniel777@gmail.com"]
+emailReceivers = ["originalndd@gmail.com", "kanybekovdaniel6@gmail.com"]
 #    --------------------------------------------------------------------------------------------------
 #  for example, it will ignore the updates that contain both trump and kamala (if there is only one it will let it pass), both furry and trend, and cricket. BUT if there is the word "next" in those updates, it will bypass the checks and deliver the update. So something like "trump beats kamala" will not pass but "trump will beat kamala in the next elections" will pass!
 #excluders = ["trump AND kamala", "furry AND trend", "cricket"]
@@ -27,32 +28,23 @@ eventLimit = 10  # max is 100
 
 
 emailSender = "ph0150167@gmail.com"
-appCode = "ocxg sayq czat pclx"
+appCode = "ocxg sayq czat pclh" # x
 
 def sendGmail(title, body):
-    for emailReceiver in emailReceivers:
+    for emailReceiver in emailReceivers[1:]:
         print("sending gmail...")
-        body = str(body)
 
-        print(type(title), type(body))
-        msg = EmailMessage()
-        msg["Subject"] = title
-        msg["From"] = emailSender
-        msg["To"] = emailReceiver
-        msg.set_content(body)
+        with yagmail.SMTP(emailSender, appCode) as yag:
+            yag.send(to=emailReceiver, subject=title, contents=str(body))
 
-
-        context = ssl.create_default_context()
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as smtp:
-            smtp.login(emailSender, appCode)
-            smtp.sendmail(emailSender, emailReceiver, msg.as_string())
-        print("Email sent!")
+        print("email sent!")
     return True
 
 def checkQuestion(df, question, yes, no, slug):
     questionExisted = False
 
     questionEventUrl = "https://polymarket.com/event/"+slug
+    print(slug)
     for x, y in df.iterrows():
         
         if y['question'] == question:
@@ -61,7 +53,7 @@ def checkQuestion(df, question, yes, no, slug):
                 print(f"old values: {y['yes']}  {y['no']}")
                 print(f"new values: {yes}, {no}")
                 updateDatabase(df, question, yes, no)
-                sendGmail("Percentage difference of more than or qual to 5% detected", f"Difference found of {abs(yes-y['yes'])*100}% , New market:\n{question} ----> YES:{str(round(yes*100))}%    NO:{str(round(no*100))}%\nOld market:\n{question} ----> YES:{str(round(y['yes']*100))}%    NO:{str(round(y['no']*100))}\n{questionEventUrl}")
+                # sendGmail("Percentage difference of more than or qual to 5% detected", f"Difference found of {abs(yes-y['yes'])*100}% , New market:\n{question} ----> YES:{str(round(yes*100))}%    NO:{str(round(no*100))}%\nOld market:\n{question} ----> YES:{str(round(y['yes']*100))}%    NO:{str(round(y['no']*100))}\n{questionEventUrl}")
                 
     if not questionExisted:
         sendGmail("New market added on polymarket!", f'''{question}\tYES:{str(round(yes*100))}%    NO:{str(round(no*100))}%\n{questionEventUrl}''')
