@@ -11,6 +11,7 @@ from datetime import datetime
 import pytz
 import yagmail
 
+
 #    --------------------------- EDIT THE BELOW LINE TO PUT YOUR EMAIL --------------------------------
 emailReceivers = ["originalndd@gmail.com", "kanybekovdaniel777@gmail.com"]
 #    --------------------------------------------------------------------------------------------------
@@ -18,16 +19,16 @@ emailReceivers = ["originalndd@gmail.com", "kanybekovdaniel777@gmail.com"]
 #excluders = ["trump AND kamala", "furry AND trend", "cricket"]
 #includers = ["next"]
 
-excluders = ["cricket", "Solana", "Bitcoin", "Ethereum", "reach $", "above $", "tweet AND times"]
+excluders = ["cricket", "Poker", "Solana", "Bitcoin", "Ethereum", "reach $", "above $", "tweet AND times"]
 includers = ["bitcoin"]
 
 #    --------------------------------------------------------------------------------------------------
-eventLimit = 10  # max is 100
+eventLimit = 1  # max is 100
 #    --------------------------------------------------------------------------------------------------
 
 
 emailSender = "ph0150167@gmail.com"
-appCode = "ocxg sayq czat pclh"
+appCode = "ocxg sayq czat pclx" # x
 
 def sendGmail(title, body):
     for emailReceiver in emailReceivers[1:]:
@@ -48,11 +49,12 @@ def checkQuestion(df, question, yes, no, slug):
         
         if y['question'] == question:
             questionExisted = True
-            if abs(yes-y['yes'])*100 >= 5:
-                print(f"old values: {y['yes']}  {y['no']}")
-                print(f"new values: {yes}, {no}")
-                updateDatabase(df, question, yes, no)
-
+            # if abs(yes-y['yes'])*100 >= 5:
+            #     print(f"old values: {y['yes']}  {y['no']}")
+            #     print(f"new values: {yes}, {no}")
+            #     updateDatabase(df, question, yes, no)
+                # sendGmail("Percentage difference of more than or qual to 5% detected", f"Difference found of {abs(yes-y['yes'])*100}% , New market:\n{question} ----> YES:{str(round(yes*100))}%    NO:{str(round(no*100))}%\nOld market:\n{question} ----> YES:{str(round(y['yes']*100))}%    NO:{str(round(y['no']*100))}\n{questionEventUrl}")
+                
     if not questionExisted:
         sendGmail("New market added on polymarket!", f'''{question}\tYES:{str(round(yes*100))}%    NO:{str(round(no*100))}%\n{questionEventUrl}''')
         return False
@@ -65,6 +67,8 @@ def updateDatabase(df, question, yes, no):
         if row['question'] == question:
             df.at[index, 'yes'] = yes
             df.at[index, 'no'] = no
+            
+            
 
 
 def saveNewData(data):
@@ -104,7 +108,7 @@ def go():
             slug = x['slug']
             for y in (x['markets']):
                 try:
-                    yesInt, noInt = [float(a) for a in ast.literal_eval(y['outcomePrices'])]
+                    yesInt, noInt = [   float(a) for a in ast.literal_eval(y['outcomePrices'])]
                     yes, no = str(round(yesInt*100))+"%", str(round(noInt*100))+"%"
                 except:
                     yes, no = ["ERROR"]*2
@@ -112,7 +116,8 @@ def go():
                 if not allowQuestion(y['question']): continue
 
 
-                checkQuestion(df, y['question'], yesInt, noInt, slug)
+                if checkQuestion(df, y['question'], yesInt, noInt, slug):
+                    continue
 
                 marketHistory.append([y['question'], yesInt, noInt])
         except Exception as e:

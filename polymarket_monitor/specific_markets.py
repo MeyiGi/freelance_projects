@@ -26,7 +26,7 @@ emailReceivers = ["originalndd@gmail.com", "kanybekovdaniel6@gmail.com"]
 #    --------------------------------------------------------------------------------------------------
 
 emailSender = "ph0150167@gmail.com"
-appCode = "ocxg sayq czat pclh" # x
+appCode = "ocxg sayq czat pclx" # x
 
 def sendGmail(title, body):
     for emailReceiver in emailReceivers[1:]:

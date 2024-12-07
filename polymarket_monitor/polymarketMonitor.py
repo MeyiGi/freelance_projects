@@ -28,17 +28,20 @@ eventLimit = 10  # max is 100
 
 
 emailSender = "ph0150167@gmail.com"
-appCode = "ocxg sayq czat pclh" # x
+appCode = "ocxg sayq czat pclx" # x
 
 def sendGmail(title, body):
-    for emailReceiver in emailReceivers[1:]:
-        print("sending gmail...")
+    try:
+        for emailReceiver in emailReceivers[1:]:
+            print("sending gmail...")
 
-        with yagmail.SMTP(emailSender, appCode) as yag:
-            yag.send(to=emailReceiver, subject=title, contents=str(body))
+            with yagmail.SMTP(emailSender, appCode) as yag:
+                yag.send(to=emailReceiver, subject=title, contents=str(body))
 
-        print("email sent!")
-    return True
+            print("email sent!")
+        return True
+    except Exception:
+        time.sleep(120)
 
 def checkQuestion(df, question, yes, no, slug):
     questionExisted = False
@@ -116,7 +119,8 @@ def go():
                 if not allowQuestion(y['question']): continue
 
 
-                checkQuestion(df, y['question'], yesInt, noInt, slug)
+                if checkQuestion(df, y['question'], yesInt, noInt, slug):
+                    continue
 
                 marketHistory.append([y['question'], yesInt, noInt])
         except Exception as e:

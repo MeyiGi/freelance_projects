@@ -28,7 +28,7 @@ appCode = "ocxg sayq czat pclx"
 post_ids = deque(maxlen=3)
 
 def sendGmail(title, body):    
-    for emailReceiver in emailReceivers[1:]:
+    for emailReceiver in emailReceivers:
         print(f"sending gmail to {emailReceiver}")
 
         with yagmail.SMTP(emailSender, appCode) as yag:
@@ -62,10 +62,9 @@ last_notification_time = time.time()
 # Infinite for 24/7 work
 while True:
     go()
-    time.sleep(1350)
+    time.sleep(3600)
 
-    if time.time() - last_notification_time > 3600:
-        eastern = pytz.timezone("US/Eastern")
-        eastern_time = datetime.now(eastern)
-        sendGmail("Program Status", f"instagram Trump tracking program is still running at {eastern_time.strftime('%Y-%m-%d %H:%M:%S')} in US Eastern Time.")
-        last_notification_time = time.time()
+    eastern = pytz.timezone("US/Eastern")
+    eastern_time = datetime.now(eastern)
+    sendGmail("Program Status", f"instagram Trump tracking program is still running at {eastern_time.strftime('%Y-%m-%d %H:%M:%S')} in US Eastern Time.")
+    last_notification_time = time.time()
