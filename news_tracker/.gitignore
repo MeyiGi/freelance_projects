@@ -1,0 +1,6 @@
+log.log
+config/.env
+config/google_TTS_credentials.json
+src/__pycache__
+src/tts/__pycache__
+audio/*.mp3
